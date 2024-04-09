@@ -1,0 +1,523 @@
+/** Der Inhalt dieser Datei ist ausschließlich für die interne 
+  * Verwendung in der Lehrveranstaltung im Wintersemester 2024ff:
+  * Internet-Server-Programmierung
+  * im Studiengang Medieninformatik-Online, B.Sc.
+  * der Fakultät Informatik
+  * in der Hochschule Braunschweig/Wolfenbüttel
+  * gedacht.
+  * Datum 06. 04. 2024
+  * Version: 0.9.8.0
+  * Autoren: B. Sc. M. Borm, Dipl.-Inform. A. Ludwig
+  * (c) 2023-2024: Hochschule Braunschweig/Wolfenbüttel, Fakultät Informatik
+  * Alle Rechte bleiben vorbehalten.
+  *
+  * TODO: minipage soll in Randbereich reichen, 
+  */
+
+
+
+/* we style the visible part only, therefore the html-tag-rule has an empty body. */
+html{}
+
+
+/* default, in case we forget the webpage-id-selector at the body tag */
+body {
+      margin : 0; /* sonst ist in der nav linke Seite eine lücke */
+     padding : 0rem;
+  overflow-x : hidden; /* wenn das gesetzt ist, wird alles andere ignoriert, auch mit important */
+  overflow-y : hidden; 
+      height : 100vh;
+       width : 100vw;
+}
+
+
+
+/* styles for use in navigation area */
+
+#nav-bar {
+          position : fixed;
+            height : 3.4rem;
+            margin : 0;
+       padding-top : 0.6rem;
+               top : 0;
+             width : 100%;
+          position : fixed;
+          overflow : hidden;
+          
+  background-color : darkseagreen;
+             color : black;
+}
+
+#navpic-home {
+}
+
+#navpic-scroll {
+   width : 32px;
+  height : 32px;
+}
+
+.nav-link {
+      margin-left : 0.6rem;
+     margin-right : 0.6rem;
+  text-decoration : none;
+}
+.nav-link:hover {
+  color : white;
+}
+
+.nav-link:visited{
+  color : orange;
+}
+
+
+.nav-center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+
+/* not used, here 
+#breadcrumbs{
+  display : inline-block;
+
+    color : yellow;
+}
+
+*/
+
+
+
+
+
+/* Position, size and scroll policy of the views' container.
+* e.g. a div, which contains a main tag. */
+#almb-view-container{
+    position : absolute;
+         top : 4rem;
+    height   : calc(100vh - 4rem);
+   min-width : 10rem;
+       width : 100vw;
+   max-width : 100vw;
+  overflow-x : hidden;
+  overflow-y : auto;
+}
+
+
+/* special elements */
+
+#copyright-floater{
+        position : fixed;
+         z-index : 99999;  /* max int 32 bit; always on top ???*/
+/*         z-index : 2147483647;  /* max int 32 bit; always on top ??? */  
+             top : 30%;
+           right : calc(0% - 18.5rem);
+           float : left;
+
+          border : solid black;
+          margin : 0.5rem;
+    padding-left : 0.5rem;
+   padding-right : 1.0rem;
+  padding-bottom : 0.6rem;
+     padding-top : 0.5rem;
+}
+
+.copyrightfloater-copyright{
+         display : inline-block;
+  vertical-align : middle;
+}
+
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  background-color : darkseagreen;
+  height:  2rem;
+  width: 100vw;
+}
+
+
+
+/* semantic styles */
+
+
+/* semantic styles of contents */
+
+
+/* Todo: author and date should be context sensitive */
+.author {
+  font-weight : normal;
+   text-align : center;
+}
+
+.date {
+  font-weight : normal;
+   text-align : center;
+}
+
+/* replaced by document' semantic structures tags and by #webpage default style 
+.text{}
+*/
+
+/* semi semantic equivalent for use with the body-tag only */
+
+#webpage{
+  font-size : 1rem;
+}
+
+#webpage > .title {
+     margin-top : 1rem;
+  margin-bottom : 0rem;
+
+    font-weight : bold;
+      font-size : 2.2rem;
+}
+
+
+/* the view(s) itself (themselves); a container e.g. at the main tag */
+.view {
+    margin-left : 1.5rem;
+   margin-right : 1.5rem;
+  margin-bottom : 1.5rem;
+        padding : 0.5rem;
+}
+
+
+
+
+.book{
+}
+
+.book > .title {
+      margin-top : 2rem;
+   margin-bottom : 1rem;
+
+  text-align  : center;
+
+  font-weight : bold;
+  font-size   : 2rem;
+}
+
+
+.chapter{
+}
+
+.chapter > .title {
+     margin-top : 1rem;
+  margin-bottom : 0rem;
+
+    text-align  : center;
+
+    font-weight : bold;
+      font-size : 1.8rem;
+}
+
+
+.article{
+  padding-top : 1rem;
+  counter-reset : section;
+}
+
+.article > .title {
+     margin-top : 0.6rem;
+  margin-bottom : 0rem;
+
+    text-align  : center;
+
+    font-weight : bold;
+      font-size : 1.6rem;
+}
+
+.article > .subtitle {
+     margin-top : 0.6rem;
+  margin-bottom : 0rem;
+
+    text-align  : center;
+
+    font-weight : bold;
+      font-size : 1.2rem;
+}
+
+.article .separator{
+   text-align : center;
+}
+
+.article .separator .position-anchor::after{
+  content : "#####";
+}
+
+
+.abstract {
+  font-style: italic;
+}
+
+.abstract > .title{
+     margin-top : 0.4rem;
+  margin-bottom : 0rem;
+
+    text-align  : center;
+
+    font-weight : bold;
+      font-size : 1.2rem;
+}
+
+
+.section{
+  counter-increment : section;
+  counter-reset : subsection;
+}
+
+.section > .title {
+     margin-top : 0.4rem;
+  margin-bottom : 0rem;
+
+    text-align  : center;
+
+    font-weight : bold;
+      font-size : 1.4rem;
+}
+
+.section > .title::before{
+  content : counter(section, decimal)"  ";
+}
+
+
+.subsection{
+      counter-reset : subsubsection;
+  counter-increment : subsection;
+  
+}
+
+.subsection > .title::before{
+  content : counter(section, decimal)"."counter(subsection,decimal)"  ";
+}
+
+.subsection > .title{
+     margin-top : 0.2rem;
+  margin-bottom : 0rem;
+
+    text-align  : center;
+
+    font-weight : bold;
+      font-size : 1.2rem;
+}
+
+
+.subsubsection{
+  counter-increment : subsubsection;
+}
+
+.subsubsection > .title{
+      margin-top : 0.1rem;
+   margin-bottom : 0rem;
+
+    text-align  : center;
+
+     font-style : italic;
+      font-size : 1.2rem;
+}
+
+.subsubsection > .title::before{
+  content : counter(section, decimal)"."counter(section, decimal)"."counter(subsection,decimal)"  ";
+}
+
+
+
+/* domain related page content */
+
+
+.picklist {
+      list-style-type : "＞ ";
+  list-style-position : inside;
+}
+
+.picklist>.item::marker {
+  color: darkseagreen;
+  font-size: 1.2em;
+}
+
+
+
+
+
+
+/* nested problem display: 1) a) b) ... 2) a) b) .... */
+
+.problems{
+  list-style-type : none;
+  couter-reset : problem;
+}
+
+.problems > li{
+  counter-increment : problem;
+}
+
+.problems > li::marker{
+  white-space : pre;
+      content : counter(problem, decimal)")\a";
+}
+
+.problem-parts{
+  list-style-type : none;
+  counter-reset: problem-part;
+}
+
+.problem-parts > li{
+  counter-increment: problem-part;
+}
+
+.problem-parts > li::marker{
+  content: counter(problem-part, lower-alpha) ")\a0";
+}
+
+
+
+/* minipage environment */
+
+.minipage {
+           width : 40%;
+    margin-right : 0.5rem;
+   padding-right : 0.5rem;
+     padding-top : 0.5rem;
+  padding-bottom : 0.5rem;
+            left : -5rem;
+           float : left;
+      box-shadow : inset -8px 0 0px -6px gray;
+
+      font-style : italic;
+      color      : gray;
+}
+
+
+/* figure environment and kinds of figure content */ 
+
+.figure{
+  
+}
+
+.figure>.caption{
+  
+}
+
+
+.code{
+        display : block;
+      font-size : 0.8rem;
+     font-style : italic;
+    font-weight : bold;
+
+    white-space : pre;
+     overflow-x : auto;
+
+  margin-bottom : 0.5rem;
+
+}
+
+.img {
+          width : 100%;
+         height : 100%;
+
+     object-fit : cover;
+  margin-bottom : 0.5rem;
+}
+
+
+/* form element styling, semi semantic; ToDo ???: modify */
+
+input[type=submit] {
+  background: darkseagreen;
+  border: 0 none;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  height: 3em;
+  padding: 1em 3em;
+}
+
+#button-add[type=submit] {
+  background: darkseagreen;
+  border: 0 none;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  height: 3em;
+  padding: 1em 3em;
+}
+
+
+
+
+/* technical styles, maybe in need of some actualizations */
+
+/* for .bold and .emph exist new css attribute, which need to be learned by A.L. soon. */
+.bold{
+  font-weight : bold;
+}
+
+.centering {
+  text-align : center;
+}
+
+.emph{
+  font-style : italic;
+}
+
+.float-n-align-left {
+       float : left;
+  text-align : left;
+}
+
+.float-n-align-right {
+       float : right;
+  text-align : right;
+}
+
+.leftshiftable {
+  background-color: #b5f8b0;
+  transition: transform 0.8s ease-out, background-color 0.8s ease-out;
+/*  transition: transform 0.8s ease-in, background-color 0.8s linear;     */
+}
+
+.leftshiftable:hover {
+  background-color : #ececec;
+/*  background-color: lightgray; */
+        transition : transform 0.8s ease-in, background-color 0.8s ease-in;
+/*  transition: transform 0.5s ease-out, background-color 0.5s linear;    */
+         transform : translate(-20rem);
+}
+
+.nowrap {
+  white-space : nowrap;
+}
+
+.olul-liststyletype-none{
+  list-style-type : none;
+}
+
+
+
+/* media queries */
+@media screen and (orientation:landscape) {
+  .one-or-two-columns {
+           width : 90%;
+    column-count : 2;
+    column-width : 40%;
+          widows : 3;
+         orphans : 3;
+      column-gap : 7.5%;
+     column-rule : 2px dashed #666;
+  }
+}
+
+@media screen and (orientation:portrait) {
+  .one-or-two-columns {
+           width : 90%;
+    column-count : 1;
+    column-width : 80%;
+          widows : 3;
+         orphans : 3;
+      column-gap : 0%;
+     column-rule : 2px dashed #666;
+  }
+}
+
+/* All styles provided with changes.css by M. Borm are integrated above.*/
